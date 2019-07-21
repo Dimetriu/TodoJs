@@ -60,7 +60,6 @@ const main = (document => {
     todoList.appendChild(todoItem);
     addInput.value = "";
 
-    save(todoItem);
   }
 
   function toggleTodoItem() {
