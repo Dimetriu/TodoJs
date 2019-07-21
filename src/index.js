@@ -21,8 +21,8 @@ const main = (document => {
     const checkbox = createElement("input", { type: "checkbox", className: "checkbox" });
     const label = createElement("label", { className: "title" }, title);
     const editInput = createElement("input", { type: "text", className: "textfield" });
-    const editButton = createElement("button", { className: "edit" }, "Изменить");
-    const deleteButton = createElement("button", { className: "delete" }, "Удалить");
+    const editButton = createElement("button", { className: "edit" }, "Edit");
+    const deleteButton = createElement("button", { className: "delete" }, "Delete");
 
     const listItem = createElement(
       "li",
@@ -53,7 +53,7 @@ const main = (document => {
     e.preventDefault();
 
     if (addInput.value === "") return alert(
-      "Необходимо ввести название задачи."
+      "Enter a task name please."
     );
 
     const todoItem = createTodoItem(addInput.value);
@@ -75,10 +75,10 @@ const main = (document => {
 
     if (isEditing) {
       title.innerText = editInput.value;
-      this.innerText = "Изменить";
+      this.innerText = "Edit";
     } else {
       editInput.value = title.innerText;
-      this.innerText = "Сохранить"
+      this.innerText = "Save"
     }
 
     listItem.classList.toggle("editing");
