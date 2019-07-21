@@ -1,4 +1,4 @@
-function createTodoItem(title) {
+const createTodoItem = title => {
   const checkbox = document.createElement("input");
 
   checkbox.type = "checkbox";
@@ -27,11 +27,24 @@ function createTodoItem(title) {
   listItem.appendChild(label);
   listItem.appendChild(editInput);
   listItem.appendChild(editButton);
+  listItem.appendChild(deleteButton);
+
+  bindEvents(listItem);
 
   return listItem;
 }
 
-function addTodoItem(e) {
+const bindEvents = todoItem => {
+  const checkbox = todoItem.querySelector(".checkbox");
+  const editButton = todoItem.querySelector("button.edit");
+  const deleteButton = todoItem.querySelector("button.delete");
+
+  checkbox.addEventListener("change", toggleTodoItem);
+  editButton.addEventListener("click", editTodoItem);
+  deleteButton.addEventListener("click", deleteTodoItem);
+}
+
+const addTodoItem = (e) => {
   e.preventDefault();
 
   if (addInput.value === "") return alert(
@@ -42,6 +55,16 @@ function addTodoItem(e) {
   todoList.appendChild(todoItem);
   addInput.value = "";
 }
+
+const toggleTodoItem = ({ target }) => {
+  const listItem = target.parentNode;
+  listItem.classList.toggle("completed");
+}
+
+const editTodoItem = () => {
+
+}
+const deleteTodoItem = () => {}
 
 const todoForm = document.getElementById("todo-form");
 const addInput = document.getElementById("add-input");
