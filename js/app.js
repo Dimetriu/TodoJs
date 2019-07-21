@@ -1,4 +1,4 @@
-const createTodoItem = title => {
+function createTodoItem(title) {
   const checkbox = document.createElement("input");
 
   checkbox.type = "checkbox";
@@ -34,7 +34,7 @@ const createTodoItem = title => {
   return listItem;
 }
 
-const bindEvents = todoItem => {
+function bindEvents(todoItem) {
   const checkbox = todoItem.querySelector(".checkbox");
   const editButton = todoItem.querySelector("button.edit");
   const deleteButton = todoItem.querySelector("button.delete");
@@ -44,7 +44,7 @@ const bindEvents = todoItem => {
   deleteButton.addEventListener("click", deleteTodoItem);
 }
 
-const addTodoItem = (e) => {
+function addTodoItem(e) {
   e.preventDefault();
 
   if (addInput.value === "") return alert(
@@ -56,19 +56,40 @@ const addTodoItem = (e) => {
   addInput.value = "";
 }
 
-const toggleTodoItem = ({ target }) => {
-  const listItem = target.parentNode;
+function toggleTodoItem() {
+  const listItem = this.parentNode;
   listItem.classList.toggle("completed");
 }
 
-const editTodoItem = () => {
+function editTodoItem() {
+  const listItem = this.parentNode;
+  const title = listItem.querySelector(".title");
+  const editInput = listItem.querySelector(".textfield");
+  const isEditing = listItem.classList.contains("editing");
 
+  if (isEditing) {
+    title.innerText = editInput.value;
+    this.innerText = "Изменить";
+  } else {
+    editInput.value = title.innerText;
+    this.innerText = "Сохранить"
+  }
+
+  listItem.classList.toggle("editing");
 }
-const deleteTodoItem = () => {}
+
+function deleteTodoItem() {
+  const listItem = this.parentNode;
+
+  todoList.removeChild(listItem);
+}
 
 const todoForm = document.getElementById("todo-form");
 const addInput = document.getElementById("add-input");
 const todoList = document.getElementById("todo-list");
 const todoItems = document.querySelectorAll(".todo-item");
 
-todoForm.addEventListener("submit", addTodoItem);
+function main() {
+  todoForm.addEventListener("submit", addTodoItem);
+  todoItems.forEach(item => bindEvents(item));
+}
