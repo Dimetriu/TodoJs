@@ -104,6 +104,14 @@ class TodoItemView extends EventEmitter {
     return this.list.querySelector(`[data-id="${id}"]`);
   }
 
+  show(todos) {
+    todos.forEach(todo => {
+      const listItem = this.createElement(todo);
+
+      this.list.appendChild(listItem);
+    });
+  }
+
   addItem(todo) {
     const listItem = this.createElement(todo);
 

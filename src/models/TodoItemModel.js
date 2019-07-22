@@ -31,6 +31,7 @@ class TodoItemModel extends EventEmitter {
 
     if (index > -1) {
       this.items.splice(index, 1);
+      this.emit("change", this.items);
     }
   }
 }
