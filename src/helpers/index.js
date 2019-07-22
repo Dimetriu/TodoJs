@@ -16,4 +16,27 @@ function createElement(tag, props, ...children) {
   return element;
 }
 
-export { createElement };
+class EventEmitter {
+  constructor() {
+    this.events = {
+      "add": [cb, cb, cb],
+      "edit": [cb, cb, cb],
+    };
+  }
+
+  on(type, cb) {
+    this.events[type] = this.events[type] || [];
+    this.events[type].push(cb);
+  }
+
+  emit(type, arg) {
+    if (this.events[type]) {
+      this.events[type].forEach(cb => cb(arg));
+    }
+  }
+}
+
+export {
+  createElement,
+  EventEmitter
+};

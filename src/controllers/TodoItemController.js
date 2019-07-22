@@ -3,7 +3,7 @@ class TodoItemsController {
     this.model = model;
     this.view = view;
 
-    view.on("add", model.addTodd.bind(this));
+    view.on("add", model.addTodo.bind(this));
   }
 
   addTodo(title) {

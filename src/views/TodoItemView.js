@@ -1,6 +1,6 @@
-import { createElement } from "../helpers/createElement.js";
+import { createElement, EventEmitter } from "../helpers";
 
-class TodoItemView {
+class TodoItemView extends EventEmitter {
   constructor() {
     this.form = document.getElementById("todo-form");
     this.input = document.getElementById("add-input");
