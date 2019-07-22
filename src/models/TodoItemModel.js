@@ -26,13 +26,13 @@ class TodoItemModel extends EventEmitter {
     return item;
   }
 
-  removeItem(id) {
+  removeItem({ id }) {
     const index = this.items.findIndex(item => item.id == id);
-
     if (index > -1) {
       this.items.splice(index, 1);
       this.emit("change", this.items);
     }
+
   }
 }
 

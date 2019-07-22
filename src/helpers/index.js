@@ -49,9 +49,8 @@ function save(payload) {
 
 function load() {
   const payload = localStorage.getItem("todos");
-  const data = JSON.parse(payload);
 
-  return data;
+  return JSON.parse(payload);
 }
 
 export {
