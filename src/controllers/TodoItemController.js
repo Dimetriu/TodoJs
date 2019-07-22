@@ -3,7 +3,10 @@ class TodoItemsController {
     this.model = model;
     this.view = view;
 
-    view.on("add", model.addTodo.bind(this));
+    view.on("add", this.addTodo.bind(this));
+    view.on("toggle", this.toggleTodo.bind(this));
+    view.on("edit", this.editTodo.bind(this));
+    view.on("remove", this.removeItem.bind(this));
   }
 
   addTodo(title) {
@@ -14,6 +17,23 @@ class TodoItemsController {
     });
 
     this.view.addItem(todo);
+  }
+
+  toggleTodo({ id, completed }) {
+    const todo = this.model.updateItem(id, { completed });
+
+    this.view.toggleItem(todo);
+  }
+
+  editTodo({ id, title }) {
+    const todo = this.model.updateItem(id, { title });
+
+    this.view.editItem(todo);
+  }
+
+  removeTodo(id) {
+    this.model.removeItem(id);
+    this.view.removeItem(id);
   }
 }
 

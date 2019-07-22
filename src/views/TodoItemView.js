@@ -2,6 +2,8 @@ import { createElement, EventEmitter } from "../helpers";
 
 class TodoItemView extends EventEmitter {
   constructor() {
+    super();
+
     this.form = document.getElementById("todo-form");
     this.input = document.getElementById("add-input");
     this.list = document.getElementById("todo-list");
@@ -58,7 +60,6 @@ class TodoItemView extends EventEmitter {
     !value && alert("Enter a task name please.");
 
     this.emit("add", value);
-    // TODO: update model
   }
 
   handleToggle({ target }) {
@@ -66,7 +67,7 @@ class TodoItemView extends EventEmitter {
     const id = listItem.getAttribute("data-id");
     const completed = target.completed;
 
-    // TODO: update model
+    this.emit("toggle", { id, completed });
   }
 
   handleEdit({ target }) {
@@ -79,7 +80,7 @@ class TodoItemView extends EventEmitter {
     const isEditing = listItem.classList.contains("editing");
 
     if (isEditing) {
-      // TODO: update model
+      this.emit("edit", { id, title });
     } else {
       input.value = label.textContent;
       editButton.textContent = "Save";
@@ -88,7 +89,10 @@ class TodoItemView extends EventEmitter {
   }
 
   handleRemove({ target }) {
-    // TODO: update model
+    const listItem = target.parentNode;
+    const id = listItem.getAttribute("data-id");
+
+    this.emit("remove", { id });
   }
 
   // binds at mounting

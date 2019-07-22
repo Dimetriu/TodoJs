@@ -17,6 +17,8 @@ class TodoItemModel {
     const item = this.getItem(id);
 
     Object.keys(data).forEach(prop => item[prop] = data[prop]);
+
+    return item;
   }
 
   removeItem(id) {
@@ -25,6 +27,8 @@ class TodoItemModel {
     if (index > -1) {
       this.state.splice(index, 1);
     }
+
+    // return index;
   }
 }
 
