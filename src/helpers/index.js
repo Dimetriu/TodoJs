@@ -18,10 +18,7 @@ function createElement(tag, props, ...children) {
 
 class EventEmitter {
   constructor() {
-    this.events = {
-      "add": [cb, cb, cb],
-      "edit": [cb, cb, cb],
-    };
+    this.events = {};
   }
 
   on(type, cb) {

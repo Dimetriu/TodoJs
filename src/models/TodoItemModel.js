@@ -32,4 +32,4 @@ class TodoItemModel {
   }
 }
 
-export default TodoItemModel;
+export { TodoItemModel };
