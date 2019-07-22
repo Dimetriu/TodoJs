@@ -1,35 +1,38 @@
-class TodoItemModel {
-  constructor(state = []) {
-    this.state = state;
+import { EventEmitter } from "../helpers";
+
+class TodoItemModel extends EventEmitter {
+  constructor(items = []) {
+    super();
+
+    this.items = items;
   }
 
   getItem(id) {
-    return this.state.find(item => item.id == id);
+    return this.items.find(item => item.id == id);
   }
 
   addItem(item) {
-    this.state.push(item);
+    this.items.push(item);
+    this.emit("change", this.items);
 
     return item;
   }
 
   updateItem(id, data) {
     const item = this.getItem(id);
-
     Object.keys(data).forEach(prop => item[prop] = data[prop]);
+    this.emit("change", this.items);
 
     return item;
   }
 
   removeItem(id) {
-    const index = this.state.findIndex(item => item.id == id);
+    const index = this.items.findIndex(item => item.id == id);
 
     if (index > -1) {
-      this.state.splice(index, 1);
+      this.items.splice(index, 1);
     }
-
-    // return index;
   }
 }
 
-export { TodoItemModel };
+export default TodoItemModel;

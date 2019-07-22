@@ -8,7 +8,7 @@ class TodoItemView extends EventEmitter {
     this.input = document.getElementById("add-input");
     this.list = document.getElementById("todo-list");
 
-    this.form.addEventListener("submit", this,handleAdd.bind(this));
+    this.form.addEventListener("submit", this.handleAdd.bind(this));
   }
 
   createElement(todo) {
@@ -32,14 +32,13 @@ class TodoItemView extends EventEmitter {
       label,
       editInput,
       editButton,
-      removeButton,
-      item
+      removeButton
       );
 
     return this.addEventListeners(item);
   }
 
-  addEventListeners(item) {
+  addEventListeners(listItem) {
     const checkbox = listItem.querySelector(".checkbox");
     const editButton = listItem.querySelector("button.edit");
     const removeButton = listItem.querySelector("button.remove");
@@ -48,16 +47,16 @@ class TodoItemView extends EventEmitter {
     // checkbox.addEventListener("change", handleToggle);
     checkbox.addEventListener("change", this.handleToggle.bind(this));
     editButton.addEventListener("click", this.handleEdit.bind(this));
-    removeButton.addEventListeners("click", this.handleRemove.bind(this));
+    removeButton.addEventListener("click", this.handleRemove.bind(this));
 
-    return item;
+    return listItem;
   }
 
   handleAdd(e) {
     e.preventDefault();
 
+    if (!this.input.value) return alert("Enter a task name please.");
     const value = this.input.value;
-    !value && alert("Enter a task name please.");
 
     this.emit("add", value);
   }
@@ -65,7 +64,8 @@ class TodoItemView extends EventEmitter {
   handleToggle({ target }) {
     const listItem = target.parentNode;
     const id = listItem.getAttribute("data-id");
-    const completed = target.completed;
+
+    const completed = target.checked;
 
     this.emit("toggle", { id, completed });
   }
@@ -117,16 +117,18 @@ class TodoItemView extends EventEmitter {
 
     checkbox.checked = todo.completed;
 
-    todo.completed ?
-      listItem.classList.add("completed")
-      :
+    if (todo.completed) {
+      listItem.classList.add("completed");
+    } else {
       listItem.classList.remove("completed");
+    }
+
   }
 
   editItem(todo) {
     const listItem = this.findListItem(todo.id);
     const label = listItem.querySelector(".title");
-    const input = listItem.querySelector(".textfield");
+    // const input = listItem.querySelector(".textfield");
     const editButton = listItem.querySelector("button.edit");
 
     label.textContent = todo.title;
@@ -134,12 +136,11 @@ class TodoItemView extends EventEmitter {
     listItem.classList.remove("editing");
   }
 
-  removeItem(todo) {
-    const listItem = this.findListItem(todo.id);
+  removeItem({ id }) {
+    const listItem = this.findListItem(id);
+
     this.list.removeChild(listItem);
   }
 }
-
-const todoItemView = {};
 
 export default TodoItemView;
