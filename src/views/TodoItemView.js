@@ -57,6 +57,7 @@ class TodoItemView {
     const value = this.input.value;
     !value && alert("Enter a task name please.");
 
+    this.emit("add", value);
     // TODO: update model
   }
 
