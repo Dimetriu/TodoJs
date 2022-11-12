@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Dimetriu/TodoJs#readme",
   "devDependencies": {
     "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "webpack-dev-server": "^3.7.2"
